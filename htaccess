@@ -1,0 +1,16 @@
+
+RewriteEngine on
+RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+RewriteRule ^ /%1 [NC,L,R]
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^  %{REQUEST_URI}.html [NC,L]
+
+Options All -Indexes
+
+# DO NOT REMOVE THIS LINE AND THE LINES BELOW HOTLINKID:EJj72NCwzO
+RewriteEngine on
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?hack2breaksecurity.com/.*$      [NC]
+RewriteRule .*\.(.*|jpg|jpeg|gif|png|bmp|tiff|avi|mpeg|mpg|wma|mov|zip|rar|exe|mp3|pdf|swf|psd|txt|html|htm|php)$ http://hack2breaksecurity.com [R,NC]
+# DO NOT REMOVE THIS LINE AND THE LINES ABOVE EJj72NCwzO:HOTLINKID
+
