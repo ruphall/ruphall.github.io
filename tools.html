@@ -1,155 +1,516 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cyber Security - Full Overview</title>
+  <meta charset="UTF-8">
+  <title>Cybersecurity Toolbox</title>
   <style>
     body {
-      background-color: #121212;
-      color: #e0e0e0;
-      font-family: 'Segoe UI', sans-serif;
-      line-height: 1.6;
       margin: 0;
-      padding: 0;
+      font-family: sans-serif;
+      display: flex;
+      height: 100vh;
+      background-color: #1e1e2f;
+      color: white;
     }
-    header {
-      background: #1f1f1f;
-      padding: 20px;
+
+    .sidebar {
+      width: 280px;
+      background-color: #2c2c3c;
+      overflow-y: auto;
+      padding: 10px;
+      border-right: 1px solid #444;
+    }
+
+    .sidebar h2 {
       text-align: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.7);
+      margin: 10px 0;
+      font-size: 18px;
+      color: #eee;
     }
-    header h1 {
-      color: #00ffcc;
-      margin: 0;
-      font-size: 2em;
+
+    .tool-button {
+      width: 100%;
+      margin: 5px 0;
+      padding: 10px;
+      background-color: #3c3c4c;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.2s;
     }
-    .container {
-      max-width: 1000px;
-      margin: auto;
+
+    .tool-button:hover {
+      background-color: #505062;
+    }
+
+    .content {
+      flex-grow: 1;
       padding: 20px;
+      overflow-y: auto;
     }
-    .section {
-      background-color: #1e1e1e;
-      margin-bottom: 20px;
-      padding: 20px;
-      border-left: 5px solid #00ffcc;
+
+    .command-box {
+      background-color: #2e2e3e;
+      padding: 15px;
       border-radius: 6px;
-      box-shadow: 0 0 10px rgba(0,255,204,0.2);
-    }
-    h2 {
-      color: #00ffcc;
-    }
-    ul {
-      padding-left: 20px;
-    }
-    a {
-      color: #00d1a1;
-    }
-    code {
-      background: #2e2e2e;
-      padding: 2px 6px;
-      border-radius: 3px;
-      color: #00ffd0;
+      margin-top: 10px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      line-height: 1.5;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Cyber Security Overview</h1>
-  </header>
+<div class="sidebar">
+  <h2>Cyber Tools</h2>
+  <div id="toolButtons"></div>
+</div>
 
-  <div class="container">
+<div class="content">
+  <h1 id="toolTitle">Select a Tool</h1>
+  <div id="commandBox" class="command-box">Click a tool on the left to view commands or description.</div>
+</div>
 
-    <div class="section">
-      <h2>What is Cyber Security?</h2>
-      <p>Cyber security is the practice of protecting systems, networks, and data from digital attacks. These attacks can be aimed at stealing, altering, or destroying sensitive data or interrupting digital operations.</p>
-    </div>
+<script>
+  const tools = {
+    "Amass": [
+      "amass enum -d example.com",
+      "amass intel -d example.com",
+      "amass track -d example.com",
+      "amass db -d example.com",
+      "amass viz -d3 -dir ./output/ -d example.com"
+    ],
+    "Assetfinder": [
+      "assetfinder example.com",
+      "assetfinder --subs-only example.com",
+      "assetfinder --ip example.com",
+      "assetfinder | grep example",
+      "assetfinder --help"
+    ],
+    "Hakrawler": [
+      "hakrawler -url https://example.com",
+      "hakrawler -depth 2 -url https://example.com",
+      "hakrawler -scope subs -url https://example.com",
+      "hakrawler -plain -url https://example.com",
+      "hakrawler -insecure -url https://example.com"
+    ],
+    "Gauplus": [
+      "gauplus example.com",
+      "gauplus -subs example.com",
+      "gauplus -json example.com",
+      "gauplus -b png,jpg example.com",
+      "gauplus -t 50 example.com"
+    ],
+    "Waybackurls": [
+      "waybackurls example.com",
+      "cat domains.txt | waybackurls",
+      "echo example.com | waybackurls > urls.txt",
+      "waybackurls -h",
+      "Use to fetch historical URLs from archive.org"
+    ],
+    "Katana": [
+      "katana -u https://example.com",
+      "katana -list urls.txt",
+      "katana -depth 2 -u https://example.com",
+      "katana -jc -u https://example.com",
+      "katana -h"
+    ],
+    "Findomain": [
+      "findomain -t example.com",
+      "findomain -q example.com",
+      "findomain -u example.com",
+      "findomain -f domains.txt",
+      "findomain --help"
+    ],
+    "ParamSpider": [
+      "python3 paramspider.py -d example.com",
+      "paramspider -d example.com -o output.txt",
+      "paramspider --exclude css,js -d example.com",
+      "python3 paramspider.py -s example.com -e php,html",
+      "paramspider -h"
+    ],
+   "Subfinder": [
+        "subfinder -d example.com",
+        "subfinder -d example.com -silent",
+        "subfinder -d example.com -all",
+        "subfinder -d example.com -o subdomains.txt",
+        "subfinder -d example.com -t 50"
+    ],
+    "Sublist3r": [
+        "sublist3r -d example.com",
+        "sublist3r -d example.com -o result.txt",
+        "sublist3r -d example.com -v",
+        "sublist3r -d example.com -p 80,443",
+        "sublist3r -d example.com -t 50"
+    ],
+    "Knockpy": [
+        "knockpy example.com",
+        "knockpy -w custom.txt example.com",
+        "knockpy -o output/ example.com",
+        "knockpy --output example.csv example.com",
+        "knockpy --no-colors example.com"
+    ],
+    "Chaos": [
+        "chaos -d example.com",
+        "chaos -silent -d example.com",
+        "chaos -d example.com -o chaos.txt",
+        "chaos -list domains.txt",
+        "chaos -threads 50 -d example.com"
+    ],
+    "Burp Suite": [
+        "Open Burp Suite",
+        "Set Proxy to 127.0.0.1:8080 in browser",
+        "Enable Intercept in Proxy tab",
+        "Use Repeater to replay requests",
+        "Use Scanner to find vulnerabilities"
+    ],
+    "OWASP ZAP": [
+        "zap.sh -daemon -port 8080",
+        "zap-cli quick-scan --self-contained http://example.com",
+        "zap-cli report -o report.html -f html",
+        "zap.sh -quickurl http://example.com",
+        "zap-cli start && zap-cli open-url http://example.com"
+    ],
+    "SQLmap": [
+        "sqlmap -u 'http://example.com/page?id=1' --dbs",
+        "sqlmap -r request.txt --batch",
+        "sqlmap -u 'http://example.com/page?id=1' --dump",
+        "sqlmap -u 'http://example.com/page?id=1' --level=5 --risk=3",
+        "sqlmap --crawl=1 -u 'http://example.com'"
+    ],
+    "XSStrike": [
+        "xsstrike -u http://example.com",
+        "xsstrike --crawl -u http://example.com",
+        "xsstrike --blind -u http://example.com",
+        "xsstrike --fuzzer -u http://example.com",
+        "xsstrike --params -u http://example.com"
+    ],
+    "Nuclei": [
+        "nuclei -t cves/ -u http://example.com",
+        "nuclei -u http://example.com -severity high",
+        "nuclei -l urls.txt -o results.txt",
+        "nuclei -u http://example.com -tags xss",
+        "nuclei -u http://example.com -rate-limit 50"
+    ],
+    "Kxss": [
+        "cat urls.txt | kxss",
+        "kxss -h",
+        "kxss < urls.txt > kxss_output.txt",
+        "cat params.txt | kxss",
+        "cat list.txt | kxss | grep -i document"
+    ],
+    "CRLFuzz": [
+    "crlfuzz -u https://example.com",
+    "crlfuzz -l urls.txt -o results.txt",
+    "crlfuzz -u https://example.com --threads 10",
+    "crlfuzz -h",
+    "cat urls.txt | crlfuzz"
+  ],
+  "Postman": [
+    "Open Postman GUI",
+    "Create new request with URL and method",
+    "Use pre-request scripts for token auth",
+    "Set up environments with variables",
+    "Export collection for CI/CD"
+  ],
+  "GraphQLmap": [
+    "python3 graphqlmap.py -u https://target.com/graphql",
+    "graphqlmap -i introspection.json",
+    "graphqlmap --headers 'Authorization: Bearer <token>'",
+    "graphqlmap --batch",
+    "graphqlmap --proxy http://127.0.0.1:8080"
+  ],
+  "NoSQLMap": [
+    "python3 nosqlmap.py -u http://site.com/page?id=1",
+    "nosqlmap -r request.txt --dbs",
+    "nosqlmap -a --tor",
+    "nosqlmap -g --threads 10",
+    "nosqlmap --dump"
+  ],
+  "JWT_Tool": [
+    "python3 jwt_tool.py -t <JWT>",
+    "jwt_tool.py -d -t <JWT> -s <secret>",
+    "jwt_tool.py -S -t <JWT>",
+    "jwt_tool.py -I -t <JWT>",
+    "jwt_tool.py -X -t <JWT> -p payloads.txt"
+  ],
+  "Kiterunner": [
+    "kr scan https://target.com -w routes_large.kite",
+    "kr list -w routes_small.kite",
+    "kr build routes.yaml -o custom.kite",
+    "kr scan -x GET -w endpoints.kite https://target.com",
+    "kr scan --threads 50 -w api.kite"
+  ],
+  "MobSF": [
+    "./run.sh",
+    "Upload APK/IPA via web interface",
+    "Analyze static code via browser",
+    "Run dynamic analysis in VM",
+    "Export security report"
+  ],
+  "Frida": [
+    "frida-trace -n targetApp",
+    "frida -U -n targetApp",
+    "frida -U -f com.example.app -l script.js",
+    "frida-trace -U -n targetApp -m '*java*'",
+    "frida-ps -U"
+  ],
+  "Objection": [
+    "objection --gadget targetApp explore",
+    "android hooking list classes",
+    "android hooking watch class SomeClass",
+    "android sslpinning disable",
+    "env set"
+  ],
+  "APKTool": [
+    "apktool d app.apk",
+    "apktool b app_folder",
+    "apktool if framework-res.apk",
+    "apktool d app.apk -o output_dir",
+    "apktool --version"
+  ],
+  "Dex2Jar": [
+    "d2j-dex2jar.sh app.apk",
+    "d2j-jar2dex.sh app.jar",
+    "d2j-dex2jar.bat app.apk",
+    "d2j-dex-rebuild.sh classes.dex",
+    "d2j-dex-tools --help"
+  ],
+  "CloudBrute": [
+    "cloudbrute aws -w words.txt",
+    "cloudbrute azure --wordlist words.txt",
+    "cloudbrute gcp --project myproject",
+    "cloudbrute all --verbose",
+    "cloudbrute --output results.txt"
+  ],
+  "Pacu": [
+    "pacu",
+    "run whoami",
+    "run enum_users",
+    "set AWS_REGION us-east-1",
+    "run backdoor_ec2"
+  ],
+  "CloudMapper": [
+    "cloudmapper.py configure",
+    "cloudmapper.py collect --account demo",
+    "cloudmapper.py webserver",
+    "cloudmapper.py prepare",
+    "cloudmapper.py report --account demo"
+  ],
+  "ScoutSuite": [
+    "scout aws",
+    "scout azure",
+    "scout gcp",
+    "scout report -o report.html",
+    "scout --help"
+  ],
+  "Nmap": [
+    "nmap -sV example.com",
+    "nmap -A -T4 example.com",
+    "nmap -p- -v example.com",
+    "nmap -sS -Pn 192.168.1.0/24",
+    "nmap --script vuln example.com"
+  ],
+  "Masscan": [
+    "masscan -p0-65535 192.168.0.0/16 --rate=1000",
+    "masscan 10.0.0.0/8 -p80,443",
+    "masscan --banners -p21-23 192.168.1.1",
+    "masscan -iL targets.txt -p22",
+    "masscan --rate 10000 -e eth0"
+  ],
+  "Shodan": [
+    "shodan init <APIKEY>",
+    "shodan search apache",
+    "shodan host 8.8.8.8",
+    "shodan myip",
+    "shodan stats nginx"
+  ],
+  "RustScan": [
+    "rustscan -a 192.168.1.1",
+    "rustscan -a 192.168.1.1 --ulimit 5000",
+    "rustscan -a 10.0.0.1 -p 1-1000",
+    "rustscan -a 192.168.0.0/24 --range 1-100",
+    "rustscan -h"
+  ],
+  "Zmap": [
+    "zmap -p 80 192.168.1.0/24",
+    "zmap --bandwidth=10M -p 443 10.0.0.0/8",
+    "zmap -i eth0 -p 22 -o results.csv",
+    "zmap -p 80 -o - | ztee output.csv",
+    "zmap -h"
+  ],"NetFuzzer": [
+    "netfuzzer -t 192.168.1.1 -p 80",
+    "netfuzzer --file payloads.txt --target http://example.com",
+    "netfuzzer --method POST --data 'param=value'",
+    "netfuzzer -v --threads 10",
+    "netfuzzer --timeout 5"
+  ],
+  "NucleiFuzzer": [
+    "nuclei-fuzzer -t cves/ -u https://target.com",
+    "nuclei-fuzzer -l urls.txt -t fuzzing-templates/",
+    "nuclei-fuzzer -u https://site.com -severity high",
+    "nuclei-fuzzer --rate-limit 100",
+    "nuclei-fuzzer -o results.txt"
+  ],
+  "Nessus": [
+    "Start Nessus service: systemctl start nessusd",
+    "Access web UI: https://localhost:8834",
+    "Create a new scan using 'Advanced Scan' template",
+    "Configure targets and credentials",
+    "Export reports in PDF or CSV"
+  ],
+  "OpenVAS": [
+    "Start OpenVAS: openvas-start",
+    "Access GUI: https://localhost:9392",
+    "Create new target and scan task",
+    "Check logs: openvas-check-setup",
+    "Export scan report to PDF/HTML"
+  ],
+  "Nikto": [
+    "nikto -h http://example.com",
+    "nikto -host 192.168.1.1 -p 80",
+    "nikto -h https://site.com -ssl",
+    "nikto -update",
+    "nikto -Display V -output result.txt"
+  ],
+  "WhatWeb": [
+    "whatweb http://example.com",
+    "whatweb -v https://target.com",
+    "whatweb -i urls.txt -o report.txt",
+    "whatweb --color=never",
+    "whatweb --user-agent 'Mozilla/5.0'"
+  ],
+  "ffuf": [
+    "ffuf -u https://site.com/FUZZ -w wordlist.txt",
+    "ffuf -u https://site.com/page.php?param=FUZZ -w payloads.txt",
+    "ffuf -ac -t 100 -u https://site.com/FUZZ -w dirs.txt",
+    "ffuf -mc 200 -fc 404 -u https://site.com/FUZZ -w common.txt",
+    "ffuf -o results.json -of json"
+  ],
+  "wfuzz": [
+    "wfuzz -c -w wordlist.txt --hc 404 https://site.com/FUZZ",
+    "wfuzz -c -z file,payloads.txt -d 'param=FUZZ' https://site.com",
+    "wfuzz -z range,1-100 -u https://site.com/page?id=FUZZ",
+    "wfuzz -z file,dirs.txt -u https://site.com/FUZZ/ --hc 403",
+    "wfuzz -c -w wordlist.txt -u https://site.com/login?user=FUZZ"
+  ],
+  "Dirsearch": [
+    "dirsearch -u https://site.com -e php,html,js",
+    "dirsearch -l urls.txt -x 403,404 -t 20",
+    "dirsearch -u https://site.com -w custom.txt",
+    "dirsearch -u https://target.com -f -o result.txt",
+    "dirsearch -u https://target.com --json-report output.json"
+  ],
+  "Gobuster": [
+    "gobuster dir -u https://site.com -w wordlist.txt",
+    "gobuster dns -d example.com -w subdomains.txt",
+    "gobuster vhost -u https://target.com -w vhosts.txt",
+    "gobuster s3 -w buckets.txt",
+    "gobuster fuzz -u https://target.com/FUZZ -w words.txt"
+  ],
+  "Commix": [
+    "python3 commix.py --url='http://target.com/page.php?id=1'",
+    "commix.py --url='http://target.com' --data='id=1&name=test'",
+    "commix.py --cookie='auth=token' --url='http://site.com'",
+    "commix.py --url='http://site.com' --user-agent='Mozilla'",
+    "commix.py --url='http://site.com' --tor"
+  ],
+  "Dalfox": [
+    "dalfox url 'https://site.com/page?param='",
+    "dalfox file urls.txt",
+    "dalfox pipe < urls.txt",
+    "dalfox url --custom-payload payloads.txt",
+    "dalfox url --output result.html"
+  ],
+  "Metasploit": [
+    "msfconsole",
+    "search exploit windows/smb/ms17_010",
+    "use exploit/windows/smb/ms17_010_eternalblue",
+    "set RHOSTS 192.168.1.10",
+    "exploit"
+  ],
+  "Xsploit": [
+    "xsploit -scan",
+    "xsploit -fuzz -u https://target.com",
+    "xsploit -brute -wordlist passwords.txt",
+    "xsploit -lfi --url='http://site.com?page='",
+    "xsploit --xss --url='http://target.com'"
+  ],
+  "RouterSploit": [
+    "rsf.py",
+    "use scanners/autopwn",
+    "set target 192.168.1.1",
+    "run",
+    "show exploits"
+  ],
+  "Bugcrowd Templates": [
+    "Used with Nuclei: nuclei -t bugcrowd-templates/ -u https://target.com",
+    "Clone: git clone https://github.com/projectdiscovery/bugcrowd-templates",
+    "Update: cd bugcrowd-templates && git pull",
+    "Use for CVE scans via nuclei",
+    "Combine with other recon tools"
+  ],
+  "HackerOne Templates": [
+    "nuclei -t hackerone-templates/ -u https://target.com",
+    "git clone https://github.com/projectdiscovery/hackerone-templates",
+    "nuclei -l targets.txt -t hackerone-templates",
+    "Update templates: git pull",
+    "Use with custom YAML filters"
+  ],
+  "ReconFTW": [
+    "./reconftw.sh -d example.com",
+    "./reconftw.sh -l domains.txt -o output/",
+    "reconftw.sh -d example.com -a", 
+    "Modify config.yaml for tool tuning",
+    "Combine with notify for alerts"
+  ],
+  "BountyIt": [
+    "bountyit scan -d example.com",
+    "bountyit collect -o recon.json",
+    "bountyit fuzz --mode aggressive",
+    "bountyit export -f html",
+    "bountyit notify --discord"
+  ]
 
-    <div class="section">
-      <h2>Why Do We Need Cyber Security?</h2>
-      <ul>
-        <li>To protect confidential and sensitive data from theft</li>
-        <li>To secure financial transactions and business integrity</li>
-        <li>To ensure the availability of essential digital services</li>
-        <li>To comply with privacy and data protection regulations</li>
-        <li>To prevent cyberattacks and reduce risks of damage</li>
-      </ul>
-    </div>
+    // Add descriptions for tools without known commands
+  };
 
-    <div class="section">
-      <h2>Cyber Attack Methods</h2>
-      <ul>
-        <li><strong>Phishing:</strong> Deceiving users to steal login credentials</li>
-        <li><strong>Ransomware:</strong> Encrypting files and demanding payment</li>
-        <li><strong>SQL Injection:</strong> Inserting malicious queries in databases</li>
-        <li><strong>Man-in-the-Middle (MitM):</strong> Eavesdropping on communication</li>
-        <li><strong>DDoS:</strong> Overloading servers to shut down services</li>
-        <li><strong>Zero-Day Exploit:</strong> Exploiting unknown vulnerabilities</li>
-      </ul>
-    </div>
+  const allTools = [
+    "Amass", "Assetfinder", "Hakrawler", "Gauplus", "Waybackurls", "Katana", "Findomain", "ParamSpider",
+    "Subfinder", "Sublist3r", "Knockpy", "Chaos", "Burp Suite", "OWASP ZAP", "SQLmap", "XSStrike", "Nuclei", "Kxss",
+    "CRLFuzz", "Postman", "GraphQLmap", "NoSQLMap", "JWT_Tool", "Kiterunner", "MobSF", "Frida", "Objection", "APKTool",
+    "Dex2Jar", "CloudBrute", "Pacu", "CloudMapper", "ScoutSuite", "Nmap", "Masscan", "Shodan", "RustScan", "Zmap",
+    "NetFuzzer", "NucleiFuzzer", "Nessus", "OpenVAS", "Nikto", "WhatWeb", "ffuf", "wfuzz", "Dirsearch", "Gobuster",
+    "Commix", "Dalfox", "Metasploit", "Xsploit", "RouterSploit", "Bugcrowd Templates", "HackerOne Templates",
+    "ReconFTW", "BountyIt"
+  ];
 
-    <div class="section">
-      <h2>Common Hacker Tools</h2>
-      <ul>
-        <li><strong>Metasploit:</strong> Exploit framework for penetration testing</li>
-        <li><strong>Nmap:</strong> Network scanning and host discovery</li>
-        <li><strong>Wireshark:</strong> Packet capturing and analysis</li>
-        <li><strong>Hydra:</strong> Brute force login cracking tool</li>
-        <li><strong>John the Ripper:</strong> Password cracking tool</li>
-      </ul>
-    </div>
+  // Fill in missing tools with a description
+  allTools.forEach(tool => {
+    if (!tools[tool]) {
+      tools[tool] = [`${tool} is a cybersecurity tool used for reconnaissance, scanning, fuzzing or exploitation.`];
+    }
+  });
 
-    <div class="section">
-      <h2>Cyber Security Prevention Methods</h2>
-      <ul>
-        <li>Use strong and unique passwords with multi-factor authentication</li>
-        <li>Keep software, OS, and apps up-to-date</li>
-        <li>Install antivirus and anti-malware protection</li>
-        <li>Enable firewalls and IDS/IPS systems</li>
-        <li>Encrypt sensitive communications and data</li>
-        <li>Limit user access with least privilege principles</li>
-        <li>Educate users with security awareness training</li>
-      </ul>
-    </div>
+  // Generate buttons and attach click events
+  const toolButtonsContainer = document.getElementById("toolButtons");
+  const toolTitle = document.getElementById("toolTitle");
+  const commandBox = document.getElementById("commandBox");
 
-    <div class="section">
-      <h2>Cyber Security Fundamentals</h2>
-      <ul>
-        <li><strong>Risk Management:</strong> Identify, analyze, and mitigate security risks</li>
-        <li><strong>Access Control:</strong> Restrict system and data access to authorized users only</li>
-        <li><strong>Incident Response:</strong> Detect, contain, and recover from attacks</li>
-        <li><strong>Security Policies:</strong> Define acceptable use and safe behavior standards</li>
-        <li><strong>Regular Monitoring:</strong> Continuous tracking of systems and logs</li>
-      </ul>
-    </div>
+  Object.keys(tools).forEach(tool => {
+    const btn = document.createElement("button");
+    btn.className = "tool-button";
+    btn.innerText = tool;
+    btn.onclick = () => {
+      toolTitle.innerText = tool;
+      commandBox.innerText = tools[tool].join("\n\n");
+    };
+    toolButtonsContainer.appendChild(btn);
+  });
+</script>
 
-    <div class="section">
-      <h2>CIA Triad</h2>
-      <p>The <strong>CIA Triad</strong> represents three core principles of information security:</p>
-      <ul>
-        <li><strong>Confidentiality:</strong> Preventing unauthorized access to sensitive data</li>
-        <li><strong>Integrity:</strong> Ensuring data is accurate and unmodified</li>
-        <li><strong>Availability:</strong> Ensuring systems and services are accessible when needed</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>Attack Surface Area</h2>
-      <p>The <strong>Attack Surface</strong> is the total of all possible points where an attacker can try to enter or extract data from a system.</p>
-      <h3>Examples:</h3>
-      <ul>
-        <li>Unpatched software or OS vulnerabilities</li>
-        <li>Exposed APIs or web services</li>
-        <li>Open ports and network services</li>
-        <li>Unsecured Wi-Fi or IoT devices</li>
-        <li>Phishing emails or social engineering paths</li>
-        <li>Misconfigured cloud environments</li>
-      </ul>
-      <p><strong>Goal:</strong> Reduce the attack surface to minimize risk.</p>
-    </div>
-
-  </div>
 </body>
 </html>
