@@ -1,1 +1,241 @@
 
+🛠 Offensive Security Recon Tools and Commands
+🌐 Tools for Gathering Public Information
+Amass
+amass enum -d example.com
+amass intel -org "Company Name"
+amass viz -d3 <output.json>
+Assetfinder
+assetfinder --subs-only example.com
+assetfinder -subs-only | tee domains.txt
+cat domains.txt | sort -u
+Hakrawler
+hakrawler -url https://example.com
+hakrawler -url https://example.com -depth 2
+hakrawler -url https://example.com -js -forms
+Gauplus
+gauplus example.com
+gauplus -b png,jpg,gif example.com
+gauplus -providers wayback,commoncrawl example.com
+Waybackurls
+echo example.com | waybackurls
+cat domains.txt | waybackurls
+waybackurls example.com | tee wayback.txt
+Katana
+katana -u https://example.com
+katana -u https://example.com -jc -kf all
+katana -list urls.txt -o output.txt
+Findomain
+findomain -t example.com
+findomain -f domains.txt -o
+findomain --target example.com --output --json
+ParamSpider
+python3 paramspider.py --domain example.com
+python3 paramspider.py -d example.com --level high
+python3 paramspider.py -d example.com --exclude woff,css,png
+🌐 Subdomain Enumeration
+Subfinder
+subfinder -d example.com
+subfinder -d example.com -o subdomains.txt
+subfinder -dL domains.txt
+Sublist3r
+sublist3r -d example.com
+sublist3r -d example.com -o subdomains.txt
+sublist3r -d example.com -t 50
+Knockpy
+knockpy example.com
+knockpy example.com -o knock_output/
+knockpy -w wordlist.txt example.com
+Chaos
+chaos -d example.com -o chaos_output.txt
+chaos -d example.com --key API_KEY
+chaos -dL domains.txt
+🛠 Web Application Testing
+Burp Suite
+Start Burp Suite and intercept browser traffic
+Use Repeater tab to manually test payloads
+Use Intruder to brute-force parameters
+OWASP ZAP
+zap.sh -daemon -port 8080
+zap-cli quick-scan --self-contained https://example.com
+zap-cli report -o report.html -f html
+SQLmap
+sqlmap -u "http://example.com/page.php?id=1"
+sqlmap -u "http://example.com" --crawl=3 --batch
+sqlmap -r request.txt --dbs
+XSStrike
+python3 xsstrike.py -u "http://example.com?search=test"
+python3 xsstrike.py --crawl -u "http://example.com"
+python3 xsstrike.py -u url.txt
+Nuclei
+nuclei -u https://example.com
+nuclei -l urls.txt -t cves/
+nuclei -u https://example.com -s low,medium
+Kxss
+cat urls.txt | kxss
+kxss -f urls.txt
+cat urls.txt | kxss | tee xss.txt
+CRLFuzz
+crlfuzz -u https://example.com -o crlf.txt
+crlfuzz -l urls.txt -o results.txt
+crlfuzz -u https://example.com --silent
+🔌 API Security Testing
+Postman
+Import API collection and test endpoints
+Add environment variables for tokens
+Use automated tests in the Tests tab
+GraphQLmap
+python3 graphqlmap.py -u https://example.com/graphql
+graphqlmap -u https://example.com/graphql --batch
+graphqlmap --endpoint list --headers headers.txt
+NoSQLMap
+python3 nosqlmap.py -u http://example.com/page?param=value
+nosqlmap.py -i -v
+nosqlmap.py --tor --delay 2
+JWT_Tool
+python3 jwt_tool.py eyJhbGciOiJIUzI1NiIsInR5cCI...
+jwt_tool.py token.txt -C -d
+jwt_tool.py -t token.txt -X x5u -I
+Kiterunner
+kr scan -H headers.txt -q -u https://example.com -w routes.txt
+kr brute -u https://api.example.com -w apilist.txt
+kr scan --json-output output.json
+📱 Mobile App Security Testing
+MobSF
+python manage.py runserver
+Upload APK/IPA for analysis
+Scan using REST API: curl -F "file=@app.apk" http://localhost:8000/api/v1/upload
+Frida
+frida-trace -U -n target_app
+frida -U -n target_app -e 'Interceptor.attach...'
+frida -U -n target_app -l script.js
+Objection
+objection -g com.app.package explore
+android hooking list classes
+ios sslpinning disable
+APKTool
+apktool d app.apk
+apktool b app/
+apktool if framework-res.apk
+Dex2Jar
+d2j-dex2jar app.apk
+d2j-dex2jar classes.dex
+jd-gui app-dex2jar.jar
+☁ Cloud Security Testing
+CloudBrute
+cloudbrute -d example.com
+cloudbrute -d example.com -w wordlist.txt
+cloudbrute --aws --output results.txt
+Pacu
+pacu
+run iam__enum_users
+run ec2__enum_regions
+CloudMapper
+python cloudmapper.py configure
+python cloudmapper.py collect --account myaccount
+python cloudmapper.py prepare --account myaccount
+ScoutSuite
+scout aws
+scout azure
+scout gcp
+🌍 Network Security Testing
+Nmap
+nmap -sV example.com
+nmap -A -T4 example.com
+nmap -iL targets.txt
+Masscan
+masscan -p1-65535 192.168.0.0/16 --rate=1000
+masscan -iL ips.txt -p80,443
+masscan 10.0.0.0/8 -p0-65535
+Shodan
+shodan search apache
+shodan host 1.2.3.4
+shodan stats nginx
+RustScan
+rustscan -a 192.168.1.1
+rustscan -a 10.10.10.10 --ulimit 5000
+rustscan -a 192.168.1.1 -b 2500
+Zmap
+zmap -p 80 192.168.0.0/24
+zmap -p 443 -o output.csv
+zmap -B 10M -p 22
+NetFuzzer
+netfuzzer -t 192.168.0.1 -p 21
+netfuzzer --protocols all
+netfuzzer -c config.yaml
+🔎 Vulnerability Scanners
+NucleiFuzzer
+nucleifuzzer -u https://example.com
+nucleifuzzer -l urls.txt -t fuzzing-templates/
+nucleifuzzer -silent -json
+Nessus
+Start Nessus and add new scan
+Select template and targets
+Export report as PDF
+OpenVAS
+openvas-start
+gvm-cli socket --xml ""
+view report in GSA
+Nikto
+nikto -h http://example.com
+nikto -h example.com -o report.txt
+nikto -C all -h https://example.com
+WhatWeb
+whatweb http://example.com
+whatweb -v http://example.com
+whatweb -i urls.txt
+🧪 Fuzzing Tools
+ffuf
+ffuf -u https://example.com/FUZZ -w wordlist.txt
+ffuf -u https://example.com/page.php?input=FUZZ -w params.txt
+ffuf -w dirs.txt -u https://example.com/FUZZ
+wfuzz
+wfuzz -c -z file,wordlist.txt --hc 404 https://example.com/FUZZ
+wfuzz -u https://example.com/page?param=FUZZ -w list.txt
+wfuzz -z file,users.txt -z file,passwords.txt --hc 401
+Dirsearch
+dirsearch -u https://example.com -e php,html
+dirsearch -l urls.txt -e aspx,js
+dirsearch -u https://example.com -x 403,404
+Gobuster
+gobuster dir -u https://example.com -w wordlist.txt
+gobuster dns -d example.com -w subdomains.txt
+gobuster fuzz -u https://example.com -w fuzz.txt
+💥 Exploitation Tools
+Commix
+commix --url="http://example.com/page?input=1"
+commix -u request.txt --batch
+commix --url="http://example.com" --technique=BEUSTQ
+Dalfox
+dalfox url https://example.com
+dalfox file urls.txt
+dalfox pipe < urls.txt
+Metasploit
+msfconsole
+search exploit/windows/smb/ms17_010_eternalblue
+use exploit/windows/smb/ms17_010_eternalblue
+Xsploit
+xsploit scan -u https://example.com
+xsploit exploit -t https://target.com
+xsploit xss -u https://example.com -p param
+RouterSploit
+rsf
+use scanners/autopwn
+use exploits/routers/linksys/e1000
+📋 Reporting & Automation
+Bugcrowd Templates
+Download from https://github.com/bugcrowd/templates
+Customize README.md and report.md
+Use for vulnerability disclosure
+HackerOne Templates
+Download from https://github.com/Hacker0x01/hackerone-reports
+Edit for recon/bug bounty use
+Use to generate markdown reports
+ReconFTW
+./reconftw.sh -d example.com
+./reconftw.sh -l domains.txt
+./reconftw.sh -d example.com -r full
+BountyIt
+bountyit scan -d example.com
+bountyit report -t xss -u https://example.com
+bountyit recon --auto --export results.json
