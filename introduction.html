@@ -1,118 +1,131 @@
 <!DOCTYPE html>
-<html>
-<title>Hack2BreakSecurity</title>
-<link rel="icon" href="favicon.png" type="image/png">
+<html lang="en">
 <head>
-<style>
-	
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f8fb;
-            margin: 40px;
-            color: #333;
-        }
-        h1, h2 {
-            color: #003366;
-        }
-        .section {
-            background-color: #fff;
-            padding: 20px;
-            border-left: 6px solid #0077cc;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-        ul {
-            padding-left: 20px;
-        }
-        .example {
-            background-color: #e3f2fd;
-            padding: 10px;
-            border-left: 4px solid #0288d1;
-            margin-top: 10px;
-        }
-        footer {
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: #666;
-            text-align: center;
-        }
-
-</style>
-<!--background="img/intro1.gif"	-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cybersecurity Overview</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    h1, h2 {
+      color: #2a5d84;
+    }
+    section {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #2a5d84;
+      color: white;
+    }
+  </style>
 </head>
 <body>
-<iframe width="200" height="25" src="" frameborder="0" allowfullscreen></iframe>
-<center>
-<img src="img/intro1.gif"">
-</center>
-	<div>
- <h1>Cyber Security: Explanation, Attacks, and Prevention</h1>
 
-    <div class="section">
-        <h2>What is Cyber Security?</h2>
-        <p>
-            <strong>Cyber Security</strong> is the practice of protecting systems, networks, and data from digital attacks. 
-            It ensures the confidentiality, integrity, and availability of information. With increasing digital usage, cyber security 
-            has become critical for individuals, businesses, and governments.
-        </p>
-        <div class="example">
-            <strong>Example:</strong> A company uses firewalls and antivirus software to protect customer data from hackers.
-        </div>
-    </div>
+  <h1>Cybersecurity: A Comprehensive Overview</h1>
 
-    <div class="section">
-        <h2>Common Types of Cyber Attacks</h2>
+  <section>
+    <h2>What is Cybersecurity?</h2>
+    <p>Cybersecurity is the practice of protecting systems, networks, and data from digital attacks. It involves using technology and best practices to safeguard sensitive information from malicious threats.</p>
+  </section>
 
-        <h3>1. Phishing</h3>
-        <p>Attackers send fake emails or messages to trick users into revealing personal data.</p>
-        <div class="example">
-            <strong>Example:</strong> An email pretending to be from a bank asking for your password.
-        </div>
+  <section>
+    <h2>Why Do We Need Cybersecurity?</h2>
+    <ul>
+      <li>Protect sensitive data</li>
+      <li>Prevent financial loss</li>
+      <li>Maintain privacy</li>
+      <li>Defend national security</li>
+      <li>Ensure business continuity</li>
+    </ul>
+  </section>
 
-        <h3>2. Malware</h3>
-        <p>Malicious software like viruses, worms, or ransomware that damages or gains control over a system.</p>
-        <div class="example">
-            <strong>Example:</strong> A user downloads a free game that secretly installs a virus.
-        </div>
+  <section>
+    <h2>Common Types of Cyber Attacks</h2>
+    <ul>
+      <li><strong>Phishing:</strong> Trick users into revealing information.</li>
+      <li><strong>Malware:</strong> Harmful software like viruses or worms.</li>
+      <li><strong>Ransomware:</strong> Locks files until ransom is paid.</li>
+      <li><strong>DDoS Attack:</strong> Overloads a system to make it crash.</li>
+      <li><strong>Man-in-the-Middle:</strong> Intercepts data in transit.</li>
+      <li><strong>SQL Injection:</strong> Exploits database vulnerabilities.</li>
+      <li><strong>Zero-Day Exploit:</strong> Uses unknown software flaws.</li>
+    </ul>
+  </section>
 
-        <h3>3. Denial of Service (DoS)</h3>
-        <p>An attack that floods a website or network, making it slow or unavailable to users.</p>
-        <div class="example">
-            <strong>Example:</strong> An online store crashes due to a sudden spike in traffic from an attack.
-        </div>
+  <section>
+    <h2>Methods of Attack</h2>
+    <ul>
+      <li>Malicious email attachments</li>
+      <li>Infected USB drives</li>
+      <li>Fake login pages</li>
+      <li>Wi-Fi sniffing</li>
+      <li>Social engineering</li>
+      <li>Brute force password guessing</li>
+    </ul>
+  </section>
 
-        <h3>4. SQL Injection</h3>
-        <p>Injecting malicious SQL code into a web form to access or manipulate databases.</p>
-        <div class="example">
-            <strong>Example:</strong> A hacker uses a login form to bypass password checks and access admin data.
-        </div>
+  <section>
+    <h2>Prevention Techniques</h2>
+    <table>
+      <tr>
+        <th>Method</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>Firewalls</td>
+        <td>Block unauthorized network access</td>
+      </tr>
+      <tr>
+        <td>Antivirus Software</td>
+        <td>Detects and removes malware</td>
+      </tr>
+      <tr>
+        <td>Encryption</td>
+        <td>Secures data using encoding</td>
+      </tr>
+      <tr>
+        <td>Multi-Factor Authentication</td>
+        <td>Adds extra security layers</td>
+      </tr>
+      <tr>
+        <td>Strong Passwords</td>
+        <td>Harder to guess or brute force</td>
+      </tr>
+      <tr>
+        <td>Regular Updates</td>
+        <td>Patches known vulnerabilities</td>
+      </tr>
+      <tr>
+        <td>Employee Training</td>
+        <td>Prevents human error-based breaches</td>
+      </tr>
+    </table>
+  </section>
 
-        <h3>5. Man-in-the-Middle (MitM)</h3>
-        <p>Attackers secretly intercept and possibly alter communication between two parties.</p>
-        <div class="example">
-            <strong>Example:</strong> Someone intercepts your data while using free public Wi-Fi.
-        </div>
-    </div>
-
-    <div class="section">
-        <h2>Cyber Security Prevention Methods</h2>
-        <ul>
-            <li><strong>Use Strong Passwords:</strong> Combine letters, numbers, and symbols. Avoid using the same password across accounts.</li>
-            <li><strong>Enable Two-Factor Authentication (2FA):</strong> Adds an extra layer of security.</li>
-            <li><strong>Keep Software Updated:</strong> Install security patches and updates regularly.</li>
-            <li><strong>Use Antivirus and Firewall:</strong> Helps detect and block threats.</li>
-            <li><strong>Be Cautious Online:</strong> Don’t click suspicious links or download unknown files.</li>
-            <li><strong>Back Up Data:</strong> Regularly save copies of important files in case of attack or failure.</li>
-        </ul>
-    </div>
-	</div>
-    <footer>
-        <p>© 2025 Cyber Safety Awareness | Stay Secure, Stay Smart</p>
-    </footer>
-
-
+  <section>
+    <h2>Example: WannaCry Ransomware Attack</h2>
+    <p>In 2017, the WannaCry ransomware attack affected over 200,000 computers globally. It encrypted files and demanded ransom payments in Bitcoin. The attack disrupted hospitals, factories, and businesses, especially in the UK’s NHS system.</p>
+  </section>
 
 </body>
 </html>
-
-
