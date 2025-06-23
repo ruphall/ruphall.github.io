@@ -1,241 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Offensive Security Recon Tools</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      transition: background-color 0.3s, color 0.3s;
+    }
 
-🛠 Offensive Security Recon Tools and Commands
-🌐 Tools for Gathering Public Information
-Amass
+    h1, h2 {
+      color: #1f4e79;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    pre {
+      background-color: #eee;
+      padding: 10px;
+      border-left: 4px solid #1f4e79;
+      overflow-x: auto;
+    }
+
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+
+    body.dark-mode h1, body.dark-mode h2 {
+      color: #80cbc4;
+    }
+
+    body.dark-mode pre {
+      background-color: #1e1e1e;
+      border-left-color: #80cbc4;
+    }
+
+    /* Toggle Switch */
+    .toggle-container {
+      position: fixed;
+      top: 20px;
+      right: 40px;
+      z-index: 1000;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #66bb6a;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dark Mode Toggle -->
+  <div class="toggle-container">
+    <label class="switch">
+      <input type="checkbox" id="modeToggle">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <h1>🛠 Offensive Security Recon Tools and Commands</h1>
+
+  <!-- Only partial sections shown here for brevity -->
+  <div class="section">
+    <h2>🌐 Tools for Gathering Public Information</h2>
+    <h3>Amass</h3>
+    <pre>
 amass enum -d example.com
 amass intel -org "Company Name"
-amass viz -d3 <output.json>
-Assetfinder
+amass viz -d3 &lt;output.json&gt;</pre>
+  </div>
+
+   <h3>Assetfinder</h3>
+    <pre>
 assetfinder --subs-only example.com
 assetfinder -subs-only | tee domains.txt
-cat domains.txt | sort -u
-Hakrawler
+cat domains.txt | sort -u</pre>
+
+    <h3>Hakrawler</h3>
+    <pre>
 hakrawler -url https://example.com
 hakrawler -url https://example.com -depth 2
-hakrawler -url https://example.com -js -forms
-Gauplus
+hakrawler -url https://example.com -js -forms</pre>
+
+    <h3>Gauplus</h3>
+    <pre>
 gauplus example.com
 gauplus -b png,jpg,gif example.com
-gauplus -providers wayback,commoncrawl example.com
-Waybackurls
+gauplus -providers wayback,commoncrawl example.com</pre>
+
+    <h3>Waybackurls</h3>
+    <pre>
 echo example.com | waybackurls
 cat domains.txt | waybackurls
-waybackurls example.com | tee wayback.txt
-Katana
+waybackurls example.com | tee wayback.txt</pre>
+
+    <h3>Katana</h3>
+    <pre>
 katana -u https://example.com
 katana -u https://example.com -jc -kf all
-katana -list urls.txt -o output.txt
-Findomain
+katana -list urls.txt -o output.txt</pre>
+
+    <h3>Findomain</h3>
+    <pre>
 findomain -t example.com
 findomain -f domains.txt -o
-findomain --target example.com --output --json
-ParamSpider
+findomain --target example.com --output --json</pre>
+
+    <h3>ParamSpider</h3>
+    <pre>
 python3 paramspider.py --domain example.com
 python3 paramspider.py -d example.com --level high
-python3 paramspider.py -d example.com --exclude woff,css,png
-🌐 Subdomain Enumeration
-Subfinder
+python3 paramspider.py -d example.com --exclude woff,css,png</pre>
+  </div>
+
+  <div class="section">
+    <h2>🌐 Subdomain Enumeration</h2>
+    <h3>Subfinder</h3>
+    <pre>
 subfinder -d example.com
 subfinder -d example.com -o subdomains.txt
-subfinder -dL domains.txt
-Sublist3r
+subfinder -dL domains.txt</pre>
+
+    <h3>Sublist3r</h3>
+    <pre>
 sublist3r -d example.com
 sublist3r -d example.com -o subdomains.txt
-sublist3r -d example.com -t 50
-Knockpy
+sublist3r -d example.com -t 50</pre>
+
+    <h3>Knockpy</h3>
+    <pre>
 knockpy example.com
 knockpy example.com -o knock_output/
-knockpy -w wordlist.txt example.com
-Chaos
+knockpy -w wordlist.txt example.com</pre>
+
+    <h3>Chaos</h3>
+    <pre>
 chaos -d example.com -o chaos_output.txt
 chaos -d example.com --key API_KEY
-chaos -dL domains.txt
-🛠 Web Application Testing
-Burp Suite
+chaos -dL domains.txt</pre>
+  </div>
+
+  <div class="section">
+    <h2>🛠 Web Application Testing</h2>
+    <h3>Burp Suite</h3>
+    <pre>
 Start Burp Suite and intercept browser traffic
 Use Repeater tab to manually test payloads
-Use Intruder to brute-force parameters
-OWASP ZAP
+Use Intruder to brute-force parameters</pre>
+
+    <h3>OWASP ZAP</h3>
+    <pre>
 zap.sh -daemon -port 8080
 zap-cli quick-scan --self-contained https://example.com
-zap-cli report -o report.html -f html
-SQLmap
+zap-cli report -o report.html -f html</pre>
+
+    <h3>SQLmap</h3>
+    <pre>
 sqlmap -u "http://example.com/page.php?id=1"
 sqlmap -u "http://example.com" --crawl=3 --batch
-sqlmap -r request.txt --dbs
-XSStrike
+sqlmap -r request.txt --dbs</pre>
+
+    <h3>XSStrike</h3>
+    <pre>
 python3 xsstrike.py -u "http://example.com?search=test"
 python3 xsstrike.py --crawl -u "http://example.com"
-python3 xsstrike.py -u url.txt
-Nuclei
+python3 xsstrike.py -u url.txt</pre>
+
+    <h3>Nuclei</h3>
+    <pre>
 nuclei -u https://example.com
 nuclei -l urls.txt -t cves/
-nuclei -u https://example.com -s low,medium
-Kxss
+nuclei -u https://example.com -s low,medium</pre>
+
+    <h3>Kxss</h3>
+    <pre>
 cat urls.txt | kxss
 kxss -f urls.txt
-cat urls.txt | kxss | tee xss.txt
-CRLFuzz
+cat urls.txt | kxss | tee xss.txt</pre>
+
+    <h3>CRLFuzz</h3>
+    <pre>
 crlfuzz -u https://example.com -o crlf.txt
 crlfuzz -l urls.txt -o results.txt
-crlfuzz -u https://example.com --silent
-🔌 API Security Testing
-Postman
+crlfuzz -u https://example.com --silent</pre>
+  </div>
+
+  <div class="section">
+    <h2>🔌 API Security Testing</h2>
+    <h3>Postman</h3>
+    <pre>
 Import API collection and test endpoints
 Add environment variables for tokens
-Use automated tests in the Tests tab
-GraphQLmap
+Use automated tests in the Tests tab</pre>
+
+    <h3>GraphQLmap</h3>
+    <pre>
 python3 graphqlmap.py -u https://example.com/graphql
 graphqlmap -u https://example.com/graphql --batch
-graphqlmap --endpoint list --headers headers.txt
-NoSQLMap
+graphqlmap --endpoint list --headers headers.txt</pre>
+
+    <h3>NoSQLMap</h3>
+    <pre>
 python3 nosqlmap.py -u http://example.com/page?param=value
 nosqlmap.py -i -v
-nosqlmap.py --tor --delay 2
-JWT_Tool
+nosqlmap.py --tor --delay 2</pre>
+
+    <h3>JWT_Tool</h3>
+    <pre>
 python3 jwt_tool.py eyJhbGciOiJIUzI1NiIsInR5cCI...
 jwt_tool.py token.txt -C -d
-jwt_tool.py -t token.txt -X x5u -I
-Kiterunner
+jwt_tool.py -t token.txt -X x5u -I</pre>
+
+    <h3>Kiterunner</h3>
+    <pre>
 kr scan -H headers.txt -q -u https://example.com -w routes.txt
 kr brute -u https://api.example.com -w apilist.txt
-kr scan --json-output output.json
-📱 Mobile App Security Testing
-MobSF
+kr scan --json-output output.json</pre>
+  </div>
+
+  <div class="section">
+    <h2>📱 Mobile App Security Testing</h2>
+    <h3>MobSF</h3>
+    <pre>
 python manage.py runserver
 Upload APK/IPA for analysis
-Scan using REST API: curl -F "file=@app.apk" http://localhost:8000/api/v1/upload
-Frida
+Scan using REST API: curl -F "file=@app.apk" http://localhost:8000/api/v1/upload</pre>
+
+    <h3>Frida</h3>
+    <pre>
 frida-trace -U -n target_app
 frida -U -n target_app -e 'Interceptor.attach...'
-frida -U -n target_app -l script.js
-Objection
+frida -U -n target_app -l script.js</pre>
+
+    <h3>Objection</h3>
+    <pre>
 objection -g com.app.package explore
 android hooking list classes
-ios sslpinning disable
-APKTool
+ios sslpinning disable</pre>
+
+    <h3>APKTool</h3>
+    <pre>
 apktool d app.apk
 apktool b app/
-apktool if framework-res.apk
-Dex2Jar
+apktool if framework-res.apk</pre>
+
+    <h3>Dex2Jar</h3>
+    <pre>
 d2j-dex2jar app.apk
 d2j-dex2jar classes.dex
-jd-gui app-dex2jar.jar
-☁ Cloud Security Testing
-CloudBrute
+jd-gui app-dex2jar.jar</pre>
+  </div>
+
+  <div class="section">
+    <h2>☁ Cloud Security Testing</h2>
+    <h3>CloudBrute</h3>
+    <pre>
 cloudbrute -d example.com
 cloudbrute -d example.com -w wordlist.txt
-cloudbrute --aws --output results.txt
-Pacu
+cloudbrute --aws --output results.txt</pre>
+
+    <h3>Pacu</h3>
+    <pre>
 pacu
 run iam__enum_users
-run ec2__enum_regions
-CloudMapper
+run ec2__enum_regions</pre>
+
+    <h3>CloudMapper</h3>
+    <pre>
 python cloudmapper.py configure
 python cloudmapper.py collect --account myaccount
-python cloudmapper.py prepare --account myaccount
-ScoutSuite
+python cloudmapper.py prepare --account myaccount</pre>
+
+    <h3>ScoutSuite</h3>
+    <pre>
 scout aws
 scout azure
-scout gcp
-🌍 Network Security Testing
-Nmap
+scout gcp</pre>
+  </div>
+
+  <div class="section">
+    <h2>🌍 Network Security Testing</h2>
+    <h3>Nmap</h3>
+    <pre>
 nmap -sV example.com
 nmap -A -T4 example.com
-nmap -iL targets.txt
-Masscan
+nmap -iL targets.txt</pre>
+
+    <h3>Masscan</h3>
+    <pre>
 masscan -p1-65535 192.168.0.0/16 --rate=1000
 masscan -iL ips.txt -p80,443
-masscan 10.0.0.0/8 -p0-65535
-Shodan
+masscan 10.0.0.0/8 -p0-65535</pre>
+
+    <h3>Shodan</h3>
+    <pre>
 shodan search apache
 shodan host 1.2.3.4
-shodan stats nginx
-RustScan
+shodan stats nginx</pre>
+
+    <h3>RustScan</h3>
+    <pre>
 rustscan -a 192.168.1.1
 rustscan -a 10.10.10.10 --ulimit 5000
-rustscan -a 192.168.1.1 -b 2500
-Zmap
+rustscan -a 192.168.1.1 -b 2500</pre>
+
+    <h3>Zmap</h3>
+    <pre>
 zmap -p 80 192.168.0.0/24
 zmap -p 443 -o output.csv
-zmap -B 10M -p 22
-NetFuzzer
+zmap -B 10M -p 22</pre>
+
+    <h3>NetFuzzer</h3>
+    <pre>
 netfuzzer -t 192.168.0.1 -p 21
 netfuzzer --protocols all
-netfuzzer -c config.yaml
-🔎 Vulnerability Scanners
-NucleiFuzzer
+netfuzzer -c config.yaml</pre>
+  </div>
+
+  <div class="section">
+    <h2>🔎 Vulnerability Scanners</h2>
+    <h3>NucleiFuzzer</h3>
+    <pre>
 nucleifuzzer -u https://example.com
 nucleifuzzer -l urls.txt -t fuzzing-templates/
-nucleifuzzer -silent -json
-Nessus
+nucleifuzzer -silent -json</pre>
+
+    <h3>Nessus</h3>
+    <pre>
 Start Nessus and add new scan
 Select template and targets
-Export report as PDF
-OpenVAS
+Export report as PDF</pre>
+
+    <h3>OpenVAS</h3>
+    <pre>
 openvas-start
-gvm-cli socket --xml ""
-view report in GSA
-Nikto
+gvm-cli socket --xml "<commands>"
+view report in GSA</pre>
+
+    <h3>Nikto</h3>
+    <pre>
 nikto -h http://example.com
 nikto -h example.com -o report.txt
-nikto -C all -h https://example.com
-WhatWeb
+nikto -C all -h https://example.com</pre>
+
+    <h3>WhatWeb</h3>
+    <pre>
 whatweb http://example.com
 whatweb -v http://example.com
-whatweb -i urls.txt
-🧪 Fuzzing Tools
-ffuf
+whatweb -i urls.txt</pre>
+  </div>
+
+  <div class="section">
+    <h2>🧪 Fuzzing Tools</h2>
+    <h3>ffuf</h3>
+    <pre>
 ffuf -u https://example.com/FUZZ -w wordlist.txt
 ffuf -u https://example.com/page.php?input=FUZZ -w params.txt
-ffuf -w dirs.txt -u https://example.com/FUZZ
-wfuzz
+ffuf -w dirs.txt -u https://example.com/FUZZ</pre>
+
+    <h3>wfuzz</h3>
+    <pre>
 wfuzz -c -z file,wordlist.txt --hc 404 https://example.com/FUZZ
 wfuzz -u https://example.com/page?param=FUZZ -w list.txt
-wfuzz -z file,users.txt -z file,passwords.txt --hc 401
-Dirsearch
+wfuzz -z file,users.txt -z file,passwords.txt --hc 401</pre>
+
+    <h3>Dirsearch</h3>
+    <pre>
 dirsearch -u https://example.com -e php,html
 dirsearch -l urls.txt -e aspx,js
-dirsearch -u https://example.com -x 403,404
-Gobuster
+dirsearch -u https://example.com -x 403,404</pre>
+
+    <h3>Gobuster</h3>
+    <pre>
 gobuster dir -u https://example.com -w wordlist.txt
 gobuster dns -d example.com -w subdomains.txt
-gobuster fuzz -u https://example.com -w fuzz.txt
-💥 Exploitation Tools
-Commix
+gobuster fuzz -u https://example.com -w fuzz.txt</pre>
+  </div>
+
+  <div class="section">
+    <h2>💥 Exploitation Tools</h2>
+    <h3>Commix</h3>
+    <pre>
 commix --url="http://example.com/page?input=1"
 commix -u request.txt --batch
-commix --url="http://example.com" --technique=BEUSTQ
-Dalfox
+commix --url="http://example.com" --technique=BEUSTQ</pre>
+
+    <h3>Dalfox</h3>
+    <pre>
 dalfox url https://example.com
 dalfox file urls.txt
-dalfox pipe < urls.txt
-Metasploit
+dalfox pipe < urls.txt</pre>
+
+    <h3>Metasploit</h3>
+    <pre>
 msfconsole
 search exploit/windows/smb/ms17_010_eternalblue
-use exploit/windows/smb/ms17_010_eternalblue
-Xsploit
+use exploit/windows/smb/ms17_010_eternalblue</pre>
+
+    <h3>Xsploit</h3>
+    <pre>
 xsploit scan -u https://example.com
 xsploit exploit -t https://target.com
-xsploit xss -u https://example.com -p param
-RouterSploit
+xsploit xss -u https://example.com -p param</pre>
+
+    <h3>RouterSploit</h3>
+    <pre>
 rsf
 use scanners/autopwn
-use exploits/routers/linksys/e1000
-📋 Reporting & Automation
-Bugcrowd Templates
+use exploits/routers/linksys/e1000</pre>
+  </div>
+
+  <div class="section">
+    <h2>📋 Reporting & Automation</h2>
+    <h3>Bugcrowd Templates</h3>
+    <pre>
 Download from https://github.com/bugcrowd/templates
 Customize README.md and report.md
-Use for vulnerability disclosure
-HackerOne Templates
+Use for vulnerability disclosure</pre>
+
+    <h3>HackerOne Templates</h3>
+    <pre>
 Download from https://github.com/Hacker0x01/hackerone-reports
 Edit for recon/bug bounty use
-Use to generate markdown reports
-ReconFTW
+Use to generate markdown reports</pre>
+
+    <h3>ReconFTW</h3>
+    <pre>
 ./reconftw.sh -d example.com
 ./reconftw.sh -l domains.txt
-./reconftw.sh -d example.com -r full
-BountyIt
+./reconftw.sh -d example.com -r full</pre>
+
+    <h3>BountyIt</h3>
+    <pre>
 bountyit scan -d example.com
 bountyit report -t xss -u https://example.com
-bountyit recon --auto --export results.json
+bountyit recon --auto --export results.json</pre>
+
+  <script>
+    const toggle = document.getElementById('modeToggle');
+    toggle.addEventListener('change', () => {
+      document.body.classList.toggle('dark-mode');
+    });
+  </script>
+
+</body>
+</html>
