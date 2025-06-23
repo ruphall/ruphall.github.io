@@ -2,492 +2,516 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Offensive Security Recon Tools</title>
+  <title>Cybersecurity Toolbox</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
-      transition: background-color 0.3s, color 0.3s;
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      height: 100vh;
+      background-color: #1e1e2f;
+      color: white;
     }
 
-    h1, h2 {
-      color: #1f4e79;
-    }
-
-    .section {
-      margin-bottom: 40px;
-    }
-
-    pre {
-      background-color: #eee;
+    .sidebar {
+      width: 280px;
+      background-color: #2c2c3c;
+      overflow-y: auto;
       padding: 10px;
-      border-left: 4px solid #1f4e79;
-      overflow-x: auto;
+      border-right: 1px solid #444;
     }
 
-    /* Dark mode styles */
-    body.dark-mode {
-      background-color: #121212;
-      color: #e0e0e0;
+    .sidebar h2 {
+      text-align: center;
+      margin: 10px 0;
+      font-size: 18px;
+      color: #eee;
     }
 
-    body.dark-mode h1, body.dark-mode h2 {
-      color: #80cbc4;
-    }
-
-    body.dark-mode pre {
-      background-color: #1e1e1e;
-      border-left-color: #80cbc4;
-    }
-
-    /* Toggle Switch */
-    .toggle-container {
-      position: fixed;
-      top: 20px;
-      right: 40px;
-      z-index: 1000;
-    }
-
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 60px;
-      height: 34px;
-    }
-
-    .switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .slider {
-      position: absolute;
+    .tool-button {
+      width: 100%;
+      margin: 5px 0;
+      padding: 10px;
+      background-color: #3c3c4c;
+      color: white;
+      border: none;
+      border-radius: 4px;
       cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      transition: 0.4s;
-      border-radius: 34px;
+      text-align: left;
+      transition: background 0.2s;
     }
 
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 26px;
-      width: 26px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      transition: 0.4s;
-      border-radius: 50%;
+    .tool-button:hover {
+      background-color: #505062;
     }
 
-    input:checked + .slider {
-      background-color: #66bb6a;
+    .content {
+      flex-grow: 1;
+      padding: 20px;
+      overflow-y: auto;
     }
 
-    input:checked + .slider:before {
-      transform: translateX(26px);
+    .command-box {
+      background-color: #2e2e3e;
+      padding: 15px;
+      border-radius: 6px;
+      margin-top: 10px;
+      font-family: monospace;
+      white-space: pre-wrap;
+      line-height: 1.5;
     }
   </style>
 </head>
 <body>
 
-  <!-- Dark Mode Toggle -->
-  <div class="toggle-container">
-    <label class="switch">
-      <input type="checkbox" id="modeToggle">
-      <span class="slider"></span>
-    </label>
-  </div>
+<div class="sidebar">
+  <h2>Cyber Tools</h2>
+  <div id="toolButtons"></div>
+</div>
 
-  <h1>🛠 Offensive Security Recon Tools and Commands</h1>
+<div class="content">
+  <h1 id="toolTitle">Select a Tool</h1>
+  <div id="commandBox" class="command-box">Click a tool on the left to view commands or description.</div>
+</div>
 
-  <!-- Only partial sections shown here for brevity -->
-  <div class="section">
-    <h2>🌐 Tools for Gathering Public Information</h2>
-    <h3>Amass</h3>
-    <pre>
-amass enum -d example.com
-amass intel -org "Company Name"
-amass viz -d3 &lt;output.json&gt;</pre>
-  </div>
+<script>
+  const tools = {
+    "Amass": [
+      "amass enum -d example.com",
+      "amass intel -d example.com",
+      "amass track -d example.com",
+      "amass db -d example.com",
+      "amass viz -d3 -dir ./output/ -d example.com"
+    ],
+    "Assetfinder": [
+      "assetfinder example.com",
+      "assetfinder --subs-only example.com",
+      "assetfinder --ip example.com",
+      "assetfinder | grep example",
+      "assetfinder --help"
+    ],
+    "Hakrawler": [
+      "hakrawler -url https://example.com",
+      "hakrawler -depth 2 -url https://example.com",
+      "hakrawler -scope subs -url https://example.com",
+      "hakrawler -plain -url https://example.com",
+      "hakrawler -insecure -url https://example.com"
+    ],
+    "Gauplus": [
+      "gauplus example.com",
+      "gauplus -subs example.com",
+      "gauplus -json example.com",
+      "gauplus -b png,jpg example.com",
+      "gauplus -t 50 example.com"
+    ],
+    "Waybackurls": [
+      "waybackurls example.com",
+      "cat domains.txt | waybackurls",
+      "echo example.com | waybackurls > urls.txt",
+      "waybackurls -h",
+      "Use to fetch historical URLs from archive.org"
+    ],
+    "Katana": [
+      "katana -u https://example.com",
+      "katana -list urls.txt",
+      "katana -depth 2 -u https://example.com",
+      "katana -jc -u https://example.com",
+      "katana -h"
+    ],
+    "Findomain": [
+      "findomain -t example.com",
+      "findomain -q example.com",
+      "findomain -u example.com",
+      "findomain -f domains.txt",
+      "findomain --help"
+    ],
+    "ParamSpider": [
+      "python3 paramspider.py -d example.com",
+      "paramspider -d example.com -o output.txt",
+      "paramspider --exclude css,js -d example.com",
+      "python3 paramspider.py -s example.com -e php,html",
+      "paramspider -h"
+    ],
+   "Subfinder": [
+        "subfinder -d example.com",
+        "subfinder -d example.com -silent",
+        "subfinder -d example.com -all",
+        "subfinder -d example.com -o subdomains.txt",
+        "subfinder -d example.com -t 50"
+    ],
+    "Sublist3r": [
+        "sublist3r -d example.com",
+        "sublist3r -d example.com -o result.txt",
+        "sublist3r -d example.com -v",
+        "sublist3r -d example.com -p 80,443",
+        "sublist3r -d example.com -t 50"
+    ],
+    "Knockpy": [
+        "knockpy example.com",
+        "knockpy -w custom.txt example.com",
+        "knockpy -o output/ example.com",
+        "knockpy --output example.csv example.com",
+        "knockpy --no-colors example.com"
+    ],
+    "Chaos": [
+        "chaos -d example.com",
+        "chaos -silent -d example.com",
+        "chaos -d example.com -o chaos.txt",
+        "chaos -list domains.txt",
+        "chaos -threads 50 -d example.com"
+    ],
+    "Burp Suite": [
+        "Open Burp Suite",
+        "Set Proxy to 127.0.0.1:8080 in browser",
+        "Enable Intercept in Proxy tab",
+        "Use Repeater to replay requests",
+        "Use Scanner to find vulnerabilities"
+    ],
+    "OWASP ZAP": [
+        "zap.sh -daemon -port 8080",
+        "zap-cli quick-scan --self-contained http://example.com",
+        "zap-cli report -o report.html -f html",
+        "zap.sh -quickurl http://example.com",
+        "zap-cli start && zap-cli open-url http://example.com"
+    ],
+    "SQLmap": [
+        "sqlmap -u 'http://example.com/page?id=1' --dbs",
+        "sqlmap -r request.txt --batch",
+        "sqlmap -u 'http://example.com/page?id=1' --dump",
+        "sqlmap -u 'http://example.com/page?id=1' --level=5 --risk=3",
+        "sqlmap --crawl=1 -u 'http://example.com'"
+    ],
+    "XSStrike": [
+        "xsstrike -u http://example.com",
+        "xsstrike --crawl -u http://example.com",
+        "xsstrike --blind -u http://example.com",
+        "xsstrike --fuzzer -u http://example.com",
+        "xsstrike --params -u http://example.com"
+    ],
+    "Nuclei": [
+        "nuclei -t cves/ -u http://example.com",
+        "nuclei -u http://example.com -severity high",
+        "nuclei -l urls.txt -o results.txt",
+        "nuclei -u http://example.com -tags xss",
+        "nuclei -u http://example.com -rate-limit 50"
+    ],
+    "Kxss": [
+        "cat urls.txt | kxss",
+        "kxss -h",
+        "kxss < urls.txt > kxss_output.txt",
+        "cat params.txt | kxss",
+        "cat list.txt | kxss | grep -i document"
+    ],
+   "CRLFuzz": [
+    "crlfuzz -u https://example.com",
+    "crlfuzz -l urls.txt -o results.txt",
+    "crlfuzz -u https://example.com --threads 10",
+    "crlfuzz -h",
+    "cat urls.txt | crlfuzz"
+  ],
+  "Postman": [
+    "Open Postman GUI",
+    "Create new request with URL and method",
+    "Use pre-request scripts for token auth",
+    "Set up environments with variables",
+    "Export collection for CI/CD"
+  ],
+  "GraphQLmap": [
+    "python3 graphqlmap.py -u https://target.com/graphql",
+    "graphqlmap -i introspection.json",
+    "graphqlmap --headers 'Authorization: Bearer <token>'",
+    "graphqlmap --batch",
+    "graphqlmap --proxy http://127.0.0.1:8080"
+  ],
+  "NoSQLMap": [
+    "python3 nosqlmap.py -u http://site.com/page?id=1",
+    "nosqlmap -r request.txt --dbs",
+    "nosqlmap -a --tor",
+    "nosqlmap -g --threads 10",
+    "nosqlmap --dump"
+  ],
+  "JWT_Tool": [
+    "python3 jwt_tool.py -t <JWT>",
+    "jwt_tool.py -d -t <JWT> -s <secret>",
+    "jwt_tool.py -S -t <JWT>",
+    "jwt_tool.py -I -t <JWT>",
+    "jwt_tool.py -X -t <JWT> -p payloads.txt"
+  ],
+  "Kiterunner": [
+    "kr scan https://target.com -w routes_large.kite",
+    "kr list -w routes_small.kite",
+    "kr build routes.yaml -o custom.kite",
+    "kr scan -x GET -w endpoints.kite https://target.com",
+    "kr scan --threads 50 -w api.kite"
+  ],
+  "MobSF": [
+    "./run.sh",
+    "Upload APK/IPA via web interface",
+    "Analyze static code via browser",
+    "Run dynamic analysis in VM",
+    "Export security report"
+  ],
+  "Frida": [
+    "frida-trace -n targetApp",
+    "frida -U -n targetApp",
+    "frida -U -f com.example.app -l script.js",
+    "frida-trace -U -n targetApp -m '*java*'",
+    "frida-ps -U"
+  ],
+  "Objection": [
+    "objection --gadget targetApp explore",
+    "android hooking list classes",
+    "android hooking watch class SomeClass",
+    "android sslpinning disable",
+    "env set"
+  ],
+  "APKTool": [
+    "apktool d app.apk",
+    "apktool b app_folder",
+    "apktool if framework-res.apk",
+    "apktool d app.apk -o output_dir",
+    "apktool --version"
+  ],
+  "Dex2Jar": [
+    "d2j-dex2jar.sh app.apk",
+    "d2j-jar2dex.sh app.jar",
+    "d2j-dex2jar.bat app.apk",
+    "d2j-dex-rebuild.sh classes.dex",
+    "d2j-dex-tools --help"
+  ],
+  "CloudBrute": [
+    "cloudbrute aws -w words.txt",
+    "cloudbrute azure --wordlist words.txt",
+    "cloudbrute gcp --project myproject",
+    "cloudbrute all --verbose",
+    "cloudbrute --output results.txt"
+  ],
+  "Pacu": [
+    "pacu",
+    "run whoami",
+    "run enum_users",
+    "set AWS_REGION us-east-1",
+    "run backdoor_ec2"
+  ],
+  "CloudMapper": [
+    "cloudmapper.py configure",
+    "cloudmapper.py collect --account demo",
+    "cloudmapper.py webserver",
+    "cloudmapper.py prepare",
+    "cloudmapper.py report --account demo"
+  ],
+  "ScoutSuite": [
+    "scout aws",
+    "scout azure",
+    "scout gcp",
+    "scout report -o report.html",
+    "scout --help"
+  ],
+  "Nmap": [
+    "nmap -sV example.com",
+    "nmap -A -T4 example.com",
+    "nmap -p- -v example.com",
+    "nmap -sS -Pn 192.168.1.0/24",
+    "nmap --script vuln example.com"
+  ],
+  "Masscan": [
+    "masscan -p0-65535 192.168.0.0/16 --rate=1000",
+    "masscan 10.0.0.0/8 -p80,443",
+    "masscan --banners -p21-23 192.168.1.1",
+    "masscan -iL targets.txt -p22",
+    "masscan --rate 10000 -e eth0"
+  ],
+  "Shodan": [
+    "shodan init <APIKEY>",
+    "shodan search apache",
+    "shodan host 8.8.8.8",
+    "shodan myip",
+    "shodan stats nginx"
+  ],
+  "RustScan": [
+    "rustscan -a 192.168.1.1",
+    "rustscan -a 192.168.1.1 --ulimit 5000",
+    "rustscan -a 10.0.0.1 -p 1-1000",
+    "rustscan -a 192.168.0.0/24 --range 1-100",
+    "rustscan -h"
+  ],
+  "Zmap": [
+    "zmap -p 80 192.168.1.0/24",
+    "zmap --bandwidth=10M -p 443 10.0.0.0/8",
+    "zmap -i eth0 -p 22 -o results.csv",
+    "zmap -p 80 -o - | ztee output.csv",
+    "zmap -h"
+  ],
+ "NetFuzzer": [
+    "netfuzzer -t 192.168.1.1 -p 80",
+    "netfuzzer --file payloads.txt --target http://example.com",
+    "netfuzzer --method POST --data 'param=value'",
+    "netfuzzer -v --threads 10",
+    "netfuzzer --timeout 5"
+  ],
+  "NucleiFuzzer": [
+    "nuclei-fuzzer -t cves/ -u https://target.com",
+    "nuclei-fuzzer -l urls.txt -t fuzzing-templates/",
+    "nuclei-fuzzer -u https://site.com -severity high",
+    "nuclei-fuzzer --rate-limit 100",
+    "nuclei-fuzzer -o results.txt"
+  ],
+  "Nessus": [
+    "Start Nessus service: systemctl start nessusd",
+    "Access web UI: https://localhost:8834",
+    "Create a new scan using 'Advanced Scan' template",
+    "Configure targets and credentials",
+    "Export reports in PDF or CSV"
+  ],
+  "OpenVAS": [
+    "Start OpenVAS: openvas-start",
+    "Access GUI: https://localhost:9392",
+    "Create new target and scan task",
+    "Check logs: openvas-check-setup",
+    "Export scan report to PDF/HTML"
+  ],
+  "Nikto": [
+    "nikto -h http://example.com",
+    "nikto -host 192.168.1.1 -p 80",
+    "nikto -h https://site.com -ssl",
+    "nikto -update",
+    "nikto -Display V -output result.txt"
+  ],
+  "WhatWeb": [
+    "whatweb http://example.com",
+    "whatweb -v https://target.com",
+    "whatweb -i urls.txt -o report.txt",
+    "whatweb --color=never",
+    "whatweb --user-agent 'Mozilla/5.0'"
+  ],
+  "ffuf": [
+    "ffuf -u https://site.com/FUZZ -w wordlist.txt",
+    "ffuf -u https://site.com/page.php?param=FUZZ -w payloads.txt",
+    "ffuf -ac -t 100 -u https://site.com/FUZZ -w dirs.txt",
+    "ffuf -mc 200 -fc 404 -u https://site.com/FUZZ -w common.txt",
+    "ffuf -o results.json -of json"
+  ],
+  "wfuzz": [
+    "wfuzz -c -w wordlist.txt --hc 404 https://site.com/FUZZ",
+    "wfuzz -c -z file,payloads.txt -d 'param=FUZZ' https://site.com",
+    "wfuzz -z range,1-100 -u https://site.com/page?id=FUZZ",
+    "wfuzz -z file,dirs.txt -u https://site.com/FUZZ/ --hc 403",
+    "wfuzz -c -w wordlist.txt -u https://site.com/login?user=FUZZ"
+  ],
+  "Dirsearch": [
+    "dirsearch -u https://site.com -e php,html,js",
+    "dirsearch -l urls.txt -x 403,404 -t 20",
+    "dirsearch -u https://site.com -w custom.txt",
+    "dirsearch -u https://target.com -f -o result.txt",
+    "dirsearch -u https://target.com --json-report output.json"
+  ],
+  "Gobuster": [
+    "gobuster dir -u https://site.com -w wordlist.txt",
+    "gobuster dns -d example.com -w subdomains.txt",
+    "gobuster vhost -u https://target.com -w vhosts.txt",
+    "gobuster s3 -w buckets.txt",
+    "gobuster fuzz -u https://target.com/FUZZ -w words.txt"
+  ],
+  "Commix": [
+    "python3 commix.py --url='http://target.com/page.php?id=1'",
+    "commix.py --url='http://target.com' --data='id=1&name=test'",
+    "commix.py --cookie='auth=token' --url='http://site.com'",
+    "commix.py --url='http://site.com' --user-agent='Mozilla'",
+    "commix.py --url='http://site.com' --tor"
+  ],
+  "Dalfox": [
+    "dalfox url 'https://site.com/page?param='",
+    "dalfox file urls.txt",
+    "dalfox pipe < urls.txt",
+    "dalfox url --custom-payload payloads.txt",
+    "dalfox url --output result.html"
+  ],
+  "Metasploit": [
+    "msfconsole",
+    "search exploit windows/smb/ms17_010",
+    "use exploit/windows/smb/ms17_010_eternalblue",
+    "set RHOSTS 192.168.1.10",
+    "exploit"
+  ],
+  "Xsploit": [
+    "xsploit -scan",
+    "xsploit -fuzz -u https://target.com",
+    "xsploit -brute -wordlist passwords.txt",
+    "xsploit -lfi --url='http://site.com?page='",
+    "xsploit --xss --url='http://target.com'"
+  ],
+  "RouterSploit": [
+    "rsf.py",
+    "use scanners/autopwn",
+    "set target 192.168.1.1",
+    "run",
+    "show exploits"
+  ],
+  "Bugcrowd Templates": [
+    "Used with Nuclei: nuclei -t bugcrowd-templates/ -u https://target.com",
+    "Clone: git clone https://github.com/projectdiscovery/bugcrowd-templates",
+    "Update: cd bugcrowd-templates && git pull",
+    "Use for CVE scans via nuclei",
+    "Combine with other recon tools"
+  ],
+  "HackerOne Templates": [
+    "nuclei -t hackerone-templates/ -u https://target.com",
+    "git clone https://github.com/projectdiscovery/hackerone-templates",
+    "nuclei -l targets.txt -t hackerone-templates",
+    "Update templates: git pull",
+    "Use with custom YAML filters"
+  ],
+  "ReconFTW": [
+    "./reconftw.sh -d example.com",
+    "./reconftw.sh -l domains.txt -o output/",
+    "reconftw.sh -d example.com -a", 
+    "Modify config.yaml for tool tuning",
+    "Combine with notify for alerts"
+  ],
+  "BountyIt": [
+    "bountyit scan -d example.com",
+    "bountyit collect -o recon.json",
+    "bountyit fuzz --mode aggressive",
+    "bountyit export -f html",
+    "bountyit notify --discord"
+  ]
 
-   <h3>Assetfinder</h3>
-    <pre>
-assetfinder --subs-only example.com
-assetfinder -subs-only | tee domains.txt
-cat domains.txt | sort -u</pre>
+    // Add descriptions for tools without known commands
+  };
 
-    <h3>Hakrawler</h3>
-    <pre>
-hakrawler -url https://example.com
-hakrawler -url https://example.com -depth 2
-hakrawler -url https://example.com -js -forms</pre>
+  const allTools = [
+    "Amass", "Assetfinder", "Hakrawler", "Gauplus", "Waybackurls", "Katana", "Findomain", "ParamSpider",
+    "Subfinder", "Sublist3r", "Knockpy", "Chaos", "Burp Suite", "OWASP ZAP", "SQLmap", "XSStrike", "Nuclei", "Kxss",
+    "CRLFuzz", "Postman", "GraphQLmap", "NoSQLMap", "JWT_Tool", "Kiterunner", "MobSF", "Frida", "Objection", "APKTool",
+    "Dex2Jar", "CloudBrute", "Pacu", "CloudMapper", "ScoutSuite", "Nmap", "Masscan", "Shodan", "RustScan", "Zmap",
+    "NetFuzzer", "NucleiFuzzer", "Nessus", "OpenVAS", "Nikto", "WhatWeb", "ffuf", "wfuzz", "Dirsearch", "Gobuster",
+    "Commix", "Dalfox", "Metasploit", "Xsploit", "RouterSploit", "Bugcrowd Templates", "HackerOne Templates",
+    "ReconFTW", "BountyIt"
+  ];
 
-    <h3>Gauplus</h3>
-    <pre>
-gauplus example.com
-gauplus -b png,jpg,gif example.com
-gauplus -providers wayback,commoncrawl example.com</pre>
+  // Fill in missing tools with a description
+  allTools.forEach(tool => {
+    if (!tools[tool]) {
+      tools[tool] = [`${tool} is a cybersecurity tool used for reconnaissance, scanning, fuzzing or exploitation.`];
+    }
+  });
 
-    <h3>Waybackurls</h3>
-    <pre>
-echo example.com | waybackurls
-cat domains.txt | waybackurls
-waybackurls example.com | tee wayback.txt</pre>
+  // Generate buttons and attach click events
+  const toolButtonsContainer = document.getElementById("toolButtons");
+  const toolTitle = document.getElementById("toolTitle");
+  const commandBox = document.getElementById("commandBox");
 
-    <h3>Katana</h3>
-    <pre>
-katana -u https://example.com
-katana -u https://example.com -jc -kf all
-katana -list urls.txt -o output.txt</pre>
-
-    <h3>Findomain</h3>
-    <pre>
-findomain -t example.com
-findomain -f domains.txt -o
-findomain --target example.com --output --json</pre>
-
-    <h3>ParamSpider</h3>
-    <pre>
-python3 paramspider.py --domain example.com
-python3 paramspider.py -d example.com --level high
-python3 paramspider.py -d example.com --exclude woff,css,png</pre>
-  </div>
-
-  <div class="section">
-    <h2>🌐 Subdomain Enumeration</h2>
-    <h3>Subfinder</h3>
-    <pre>
-subfinder -d example.com
-subfinder -d example.com -o subdomains.txt
-subfinder -dL domains.txt</pre>
-
-    <h3>Sublist3r</h3>
-    <pre>
-sublist3r -d example.com
-sublist3r -d example.com -o subdomains.txt
-sublist3r -d example.com -t 50</pre>
-
-    <h3>Knockpy</h3>
-    <pre>
-knockpy example.com
-knockpy example.com -o knock_output/
-knockpy -w wordlist.txt example.com</pre>
-
-    <h3>Chaos</h3>
-    <pre>
-chaos -d example.com -o chaos_output.txt
-chaos -d example.com --key API_KEY
-chaos -dL domains.txt</pre>
-  </div>
-
-  <div class="section">
-    <h2>🛠 Web Application Testing</h2>
-    <h3>Burp Suite</h3>
-    <pre>
-Start Burp Suite and intercept browser traffic
-Use Repeater tab to manually test payloads
-Use Intruder to brute-force parameters</pre>
-
-    <h3>OWASP ZAP</h3>
-    <pre>
-zap.sh -daemon -port 8080
-zap-cli quick-scan --self-contained https://example.com
-zap-cli report -o report.html -f html</pre>
-
-    <h3>SQLmap</h3>
-    <pre>
-sqlmap -u "http://example.com/page.php?id=1"
-sqlmap -u "http://example.com" --crawl=3 --batch
-sqlmap -r request.txt --dbs</pre>
-
-    <h3>XSStrike</h3>
-    <pre>
-python3 xsstrike.py -u "http://example.com?search=test"
-python3 xsstrike.py --crawl -u "http://example.com"
-python3 xsstrike.py -u url.txt</pre>
-
-    <h3>Nuclei</h3>
-    <pre>
-nuclei -u https://example.com
-nuclei -l urls.txt -t cves/
-nuclei -u https://example.com -s low,medium</pre>
-
-    <h3>Kxss</h3>
-    <pre>
-cat urls.txt | kxss
-kxss -f urls.txt
-cat urls.txt | kxss | tee xss.txt</pre>
-
-    <h3>CRLFuzz</h3>
-    <pre>
-crlfuzz -u https://example.com -o crlf.txt
-crlfuzz -l urls.txt -o results.txt
-crlfuzz -u https://example.com --silent</pre>
-  </div>
-
-  <div class="section">
-    <h2>🔌 API Security Testing</h2>
-    <h3>Postman</h3>
-    <pre>
-Import API collection and test endpoints
-Add environment variables for tokens
-Use automated tests in the Tests tab</pre>
-
-    <h3>GraphQLmap</h3>
-    <pre>
-python3 graphqlmap.py -u https://example.com/graphql
-graphqlmap -u https://example.com/graphql --batch
-graphqlmap --endpoint list --headers headers.txt</pre>
-
-    <h3>NoSQLMap</h3>
-    <pre>
-python3 nosqlmap.py -u http://example.com/page?param=value
-nosqlmap.py -i -v
-nosqlmap.py --tor --delay 2</pre>
-
-    <h3>JWT_Tool</h3>
-    <pre>
-python3 jwt_tool.py eyJhbGciOiJIUzI1NiIsInR5cCI...
-jwt_tool.py token.txt -C -d
-jwt_tool.py -t token.txt -X x5u -I</pre>
-
-    <h3>Kiterunner</h3>
-    <pre>
-kr scan -H headers.txt -q -u https://example.com -w routes.txt
-kr brute -u https://api.example.com -w apilist.txt
-kr scan --json-output output.json</pre>
-  </div>
-
-  <div class="section">
-    <h2>📱 Mobile App Security Testing</h2>
-    <h3>MobSF</h3>
-    <pre>
-python manage.py runserver
-Upload APK/IPA for analysis
-Scan using REST API: curl -F "file=@app.apk" http://localhost:8000/api/v1/upload</pre>
-
-    <h3>Frida</h3>
-    <pre>
-frida-trace -U -n target_app
-frida -U -n target_app -e 'Interceptor.attach...'
-frida -U -n target_app -l script.js</pre>
-
-    <h3>Objection</h3>
-    <pre>
-objection -g com.app.package explore
-android hooking list classes
-ios sslpinning disable</pre>
-
-    <h3>APKTool</h3>
-    <pre>
-apktool d app.apk
-apktool b app/
-apktool if framework-res.apk</pre>
-
-    <h3>Dex2Jar</h3>
-    <pre>
-d2j-dex2jar app.apk
-d2j-dex2jar classes.dex
-jd-gui app-dex2jar.jar</pre>
-  </div>
-
-  <div class="section">
-    <h2>☁ Cloud Security Testing</h2>
-    <h3>CloudBrute</h3>
-    <pre>
-cloudbrute -d example.com
-cloudbrute -d example.com -w wordlist.txt
-cloudbrute --aws --output results.txt</pre>
-
-    <h3>Pacu</h3>
-    <pre>
-pacu
-run iam__enum_users
-run ec2__enum_regions</pre>
-
-    <h3>CloudMapper</h3>
-    <pre>
-python cloudmapper.py configure
-python cloudmapper.py collect --account myaccount
-python cloudmapper.py prepare --account myaccount</pre>
-
-    <h3>ScoutSuite</h3>
-    <pre>
-scout aws
-scout azure
-scout gcp</pre>
-  </div>
-
-  <div class="section">
-    <h2>🌍 Network Security Testing</h2>
-    <h3>Nmap</h3>
-    <pre>
-nmap -sV example.com
-nmap -A -T4 example.com
-nmap -iL targets.txt</pre>
-
-    <h3>Masscan</h3>
-    <pre>
-masscan -p1-65535 192.168.0.0/16 --rate=1000
-masscan -iL ips.txt -p80,443
-masscan 10.0.0.0/8 -p0-65535</pre>
-
-    <h3>Shodan</h3>
-    <pre>
-shodan search apache
-shodan host 1.2.3.4
-shodan stats nginx</pre>
-
-    <h3>RustScan</h3>
-    <pre>
-rustscan -a 192.168.1.1
-rustscan -a 10.10.10.10 --ulimit 5000
-rustscan -a 192.168.1.1 -b 2500</pre>
-
-    <h3>Zmap</h3>
-    <pre>
-zmap -p 80 192.168.0.0/24
-zmap -p 443 -o output.csv
-zmap -B 10M -p 22</pre>
-
-    <h3>NetFuzzer</h3>
-    <pre>
-netfuzzer -t 192.168.0.1 -p 21
-netfuzzer --protocols all
-netfuzzer -c config.yaml</pre>
-  </div>
-
-  <div class="section">
-    <h2>🔎 Vulnerability Scanners</h2>
-    <h3>NucleiFuzzer</h3>
-    <pre>
-nucleifuzzer -u https://example.com
-nucleifuzzer -l urls.txt -t fuzzing-templates/
-nucleifuzzer -silent -json</pre>
-
-    <h3>Nessus</h3>
-    <pre>
-Start Nessus and add new scan
-Select template and targets
-Export report as PDF</pre>
-
-    <h3>OpenVAS</h3>
-    <pre>
-openvas-start
-gvm-cli socket --xml "<commands>"
-view report in GSA</pre>
-
-    <h3>Nikto</h3>
-    <pre>
-nikto -h http://example.com
-nikto -h example.com -o report.txt
-nikto -C all -h https://example.com</pre>
-
-    <h3>WhatWeb</h3>
-    <pre>
-whatweb http://example.com
-whatweb -v http://example.com
-whatweb -i urls.txt</pre>
-  </div>
-
-  <div class="section">
-    <h2>🧪 Fuzzing Tools</h2>
-    <h3>ffuf</h3>
-    <pre>
-ffuf -u https://example.com/FUZZ -w wordlist.txt
-ffuf -u https://example.com/page.php?input=FUZZ -w params.txt
-ffuf -w dirs.txt -u https://example.com/FUZZ</pre>
-
-    <h3>wfuzz</h3>
-    <pre>
-wfuzz -c -z file,wordlist.txt --hc 404 https://example.com/FUZZ
-wfuzz -u https://example.com/page?param=FUZZ -w list.txt
-wfuzz -z file,users.txt -z file,passwords.txt --hc 401</pre>
-
-    <h3>Dirsearch</h3>
-    <pre>
-dirsearch -u https://example.com -e php,html
-dirsearch -l urls.txt -e aspx,js
-dirsearch -u https://example.com -x 403,404</pre>
-
-    <h3>Gobuster</h3>
-    <pre>
-gobuster dir -u https://example.com -w wordlist.txt
-gobuster dns -d example.com -w subdomains.txt
-gobuster fuzz -u https://example.com -w fuzz.txt</pre>
-  </div>
-
-  <div class="section">
-    <h2>💥 Exploitation Tools</h2>
-    <h3>Commix</h3>
-    <pre>
-commix --url="http://example.com/page?input=1"
-commix -u request.txt --batch
-commix --url="http://example.com" --technique=BEUSTQ</pre>
-
-    <h3>Dalfox</h3>
-    <pre>
-dalfox url https://example.com
-dalfox file urls.txt
-dalfox pipe < urls.txt</pre>
-
-    <h3>Metasploit</h3>
-    <pre>
-msfconsole
-search exploit/windows/smb/ms17_010_eternalblue
-use exploit/windows/smb/ms17_010_eternalblue</pre>
-
-    <h3>Xsploit</h3>
-    <pre>
-xsploit scan -u https://example.com
-xsploit exploit -t https://target.com
-xsploit xss -u https://example.com -p param</pre>
-
-    <h3>RouterSploit</h3>
-    <pre>
-rsf
-use scanners/autopwn
-use exploits/routers/linksys/e1000</pre>
-  </div>
-
-  <div class="section">
-    <h2>📋 Reporting & Automation</h2>
-    <h3>Bugcrowd Templates</h3>
-    <pre>
-Download from https://github.com/bugcrowd/templates
-Customize README.md and report.md
-Use for vulnerability disclosure</pre>
-
-    <h3>HackerOne Templates</h3>
-    <pre>
-Download from https://github.com/Hacker0x01/hackerone-reports
-Edit for recon/bug bounty use
-Use to generate markdown reports</pre>
-
-    <h3>ReconFTW</h3>
-    <pre>
-./reconftw.sh -d example.com
-./reconftw.sh -l domains.txt
-./reconftw.sh -d example.com -r full</pre>
-
-    <h3>BountyIt</h3>
-    <pre>
-bountyit scan -d example.com
-bountyit report -t xss -u https://example.com
-bountyit recon --auto --export results.json</pre>
-
-  <script>
-    const toggle = document.getElementById('modeToggle');
-    toggle.addEventListener('change', () => {
-      document.body.classList.toggle('dark-mode');
-    });
-  </script>
+  Object.keys(tools).forEach(tool => {
+    const btn = document.createElement("button");
+    btn.className = "tool-button";
+    btn.innerText = tool;
+    btn.onclick = () => {
+      toolTitle.innerText = tool;
+      commandBox.innerText = tools[tool].join("\n\n");
+    };
+    toolButtonsContainer.appendChild(btn);
+  });
+</script>
 
 </body>
 </html>
