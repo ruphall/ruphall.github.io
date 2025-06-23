@@ -1,131 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cybersecurity Overview</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cyber Security - Full Overview</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 30px;
-      background-color: #f4f4f4;
-      color: #333;
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
     }
-    h1, h2 {
-      color: #2a5d84;
-    }
-    section {
-      background: white;
+    header {
+      background: #1f1f1f;
       padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.7);
+    }
+    header h1 {
+      color: #00ffcc;
+      margin: 0;
+      font-size: 2em;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+    }
+    .section {
+      background-color: #1e1e1e;
       margin-bottom: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      border-left: 5px solid #00ffcc;
+      border-radius: 6px;
+      box-shadow: 0 0 10px rgba(0,255,204,0.2);
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
+    h2 {
+      color: #00ffcc;
     }
-    table, th, td {
-      border: 1px solid #ddd;
+    ul {
+      padding-left: 20px;
     }
-    th, td {
-      padding: 12px;
-      text-align: left;
+    a {
+      color: #00d1a1;
     }
-    th {
-      background-color: #2a5d84;
-      color: white;
+    code {
+      background: #2e2e2e;
+      padding: 2px 6px;
+      border-radius: 3px;
+      color: #00ffd0;
     }
   </style>
 </head>
 <body>
 
-  <h1>Cybersecurity: A Comprehensive Overview</h1>
+  <header>
+    <h1>Cyber Security Overview</h1>
+  </header>
 
-  <section>
-    <h2>What is Cybersecurity?</h2>
-    <p>Cybersecurity is the practice of protecting systems, networks, and data from digital attacks. It involves using technology and best practices to safeguard sensitive information from malicious threats.</p>
-  </section>
+  <div class="container">
 
-  <section>
-    <h2>Why Do We Need Cybersecurity?</h2>
-    <ul>
-      <li>Protect sensitive data</li>
-      <li>Prevent financial loss</li>
-      <li>Maintain privacy</li>
-      <li>Defend national security</li>
-      <li>Ensure business continuity</li>
-    </ul>
-  </section>
+    <div class="section">
+      <h2>What is Cyber Security?</h2>
+      <p>Cyber security is the practice of protecting systems, networks, and data from digital attacks. These attacks can be aimed at stealing, altering, or destroying sensitive data or interrupting digital operations.</p>
+    </div>
 
-  <section>
-    <h2>Common Types of Cyber Attacks</h2>
-    <ul>
-      <li><strong>Phishing:</strong> Trick users into revealing information.</li>
-      <li><strong>Malware:</strong> Harmful software like viruses or worms.</li>
-      <li><strong>Ransomware:</strong> Locks files until ransom is paid.</li>
-      <li><strong>DDoS Attack:</strong> Overloads a system to make it crash.</li>
-      <li><strong>Man-in-the-Middle:</strong> Intercepts data in transit.</li>
-      <li><strong>SQL Injection:</strong> Exploits database vulnerabilities.</li>
-      <li><strong>Zero-Day Exploit:</strong> Uses unknown software flaws.</li>
-    </ul>
-  </section>
+    <div class="section">
+      <h2>Why Do We Need Cyber Security?</h2>
+      <ul>
+        <li>To protect confidential and sensitive data from theft</li>
+        <li>To secure financial transactions and business integrity</li>
+        <li>To ensure the availability of essential digital services</li>
+        <li>To comply with privacy and data protection regulations</li>
+        <li>To prevent cyberattacks and reduce risks of damage</li>
+      </ul>
+    </div>
 
-  <section>
-    <h2>Methods of Attack</h2>
-    <ul>
-      <li>Malicious email attachments</li>
-      <li>Infected USB drives</li>
-      <li>Fake login pages</li>
-      <li>Wi-Fi sniffing</li>
-      <li>Social engineering</li>
-      <li>Brute force password guessing</li>
-    </ul>
-  </section>
+    <div class="section">
+      <h2>Cyber Attack Methods</h2>
+      <ul>
+        <li><strong>Phishing:</strong> Deceiving users to steal login credentials</li>
+        <li><strong>Ransomware:</strong> Encrypting files and demanding payment</li>
+        <li><strong>SQL Injection:</strong> Inserting malicious queries in databases</li>
+        <li><strong>Man-in-the-Middle (MitM):</strong> Eavesdropping on communication</li>
+        <li><strong>DDoS:</strong> Overloading servers to shut down services</li>
+        <li><strong>Zero-Day Exploit:</strong> Exploiting unknown vulnerabilities</li>
+      </ul>
+    </div>
 
-  <section>
-    <h2>Prevention Techniques</h2>
-    <table>
-      <tr>
-        <th>Method</th>
-        <th>Description</th>
-      </tr>
-      <tr>
-        <td>Firewalls</td>
-        <td>Block unauthorized network access</td>
-      </tr>
-      <tr>
-        <td>Antivirus Software</td>
-        <td>Detects and removes malware</td>
-      </tr>
-      <tr>
-        <td>Encryption</td>
-        <td>Secures data using encoding</td>
-      </tr>
-      <tr>
-        <td>Multi-Factor Authentication</td>
-        <td>Adds extra security layers</td>
-      </tr>
-      <tr>
-        <td>Strong Passwords</td>
-        <td>Harder to guess or brute force</td>
-      </tr>
-      <tr>
-        <td>Regular Updates</td>
-        <td>Patches known vulnerabilities</td>
-      </tr>
-      <tr>
-        <td>Employee Training</td>
-        <td>Prevents human error-based breaches</td>
-      </tr>
-    </table>
-  </section>
+    <div class="section">
+      <h2>Common Hacker Tools</h2>
+      <ul>
+        <li><strong>Metasploit:</strong> Exploit framework for penetration testing</li>
+        <li><strong>Nmap:</strong> Network scanning and host discovery</li>
+        <li><strong>Wireshark:</strong> Packet capturing and analysis</li>
+        <li><strong>Hydra:</strong> Brute force login cracking tool</li>
+        <li><strong>John the Ripper:</strong> Password cracking tool</li>
+      </ul>
+    </div>
 
-  <section>
-    <h2>Example: WannaCry Ransomware Attack</h2>
-    <p>In 2017, the WannaCry ransomware attack affected over 200,000 computers globally. It encrypted files and demanded ransom payments in Bitcoin. The attack disrupted hospitals, factories, and businesses, especially in the UK’s NHS system.</p>
-  </section>
+    <div class="section">
+      <h2>Cyber Security Prevention Methods</h2>
+      <ul>
+        <li>Use strong and unique passwords with multi-factor authentication</li>
+        <li>Keep software, OS, and apps up-to-date</li>
+        <li>Install antivirus and anti-malware protection</li>
+        <li>Enable firewalls and IDS/IPS systems</li>
+        <li>Encrypt sensitive communications and data</li>
+        <li>Limit user access with least privilege principles</li>
+        <li>Educate users with security awareness training</li>
+      </ul>
+    </div>
 
+    <div class="section">
+      <h2>Cyber Security Fundamentals</h2>
+      <ul>
+        <li><strong>Risk Management:</strong> Identify, analyze, and mitigate security risks</li>
+        <li><strong>Access Control:</strong> Restrict system and data access to authorized users only</li>
+        <li><strong>Incident Response:</strong> Detect, contain, and recover from attacks</li>
+        <li><strong>Security Policies:</strong> Define acceptable use and safe behavior standards</li>
+        <li><strong>Regular Monitoring:</strong> Continuous tracking of systems and logs</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>CIA Triad</h2>
+      <p>The <strong>CIA Triad</strong> represents three core principles of information security:</p>
+      <ul>
+        <li><strong>Confidentiality:</strong> Preventing unauthorized access to sensitive data</li>
+        <li><strong>Integrity:</strong> Ensuring data is accurate and unmodified</li>
+        <li><strong>Availability:</strong> Ensuring systems and services are accessible when needed</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Attack Surface Area</h2>
+      <p>The <strong>Attack Surface</strong> is the total of all possible points where an attacker can try to enter or extract data from a system.</p>
+      <h3>Examples:</h3>
+      <ul>
+        <li>Unpatched software or OS vulnerabilities</li>
+        <li>Exposed APIs or web services</li>
+        <li>Open ports and network services</li>
+        <li>Unsecured Wi-Fi or IoT devices</li>
+        <li>Phishing emails or social engineering paths</li>
+        <li>Misconfigured cloud environments</li>
+      </ul>
+      <p><strong>Goal:</strong> Reduce the attack surface to minimize risk.</p>
+    </div>
+
+  </div>
 </body>
 </html>
